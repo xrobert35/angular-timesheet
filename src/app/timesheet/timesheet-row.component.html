@@ -1,7 +1,0 @@
-{{ rowInfo?.name}}
-<div class="cell-container">
-    <app-timesheet-cell *ngFor="let week of rowInfo?.weeks" [cellInfo]="week"></app-timesheet-cell>
-
-    <!-- https://material.angular.io/cdk/drag-drop/overview -->
-    <app-timesheet-overcell></app-timesheet-overcell>
-</div>

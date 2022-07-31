@@ -4,10 +4,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AppComponent } from './app.component';
-import { TimesheetCellComponent } from './timesheet/timesheet-cell.component';
-import { TimesheetOverCellComponent } from './timesheet/timesheet-overcell.component';
-import { TimesheetRowComponent } from './timesheet/timesheet-row.component';
 import { TimesheetComponent } from './timesheet/timesheet.component';
+import { TimesheetRowComponent } from './timesheet/timesheet-row/timesheet-row.component';
+import { TimesheetCellComponent } from './timesheet/timesheet-cell/timesheet-cell.component';
+import { TimesheetOverCellComponent } from './timesheet/timesheet-overcell/timesheet-overcell.component';
 
 @NgModule({
   declarations: [

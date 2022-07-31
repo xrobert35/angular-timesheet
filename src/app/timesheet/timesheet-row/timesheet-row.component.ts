@@ -8,6 +8,6 @@ import { Component, Input } from '@angular/core';
 export class TimesheetRowComponent {
 
     @Input()
-    rowInfo? : { name: string, weeks : {name: string}[]};
+    rowInfo? : { name: string, data : {name: string}[]};
 
 }
