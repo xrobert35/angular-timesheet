@@ -4,6 +4,6 @@
         <div class="timesheet-header" *ngFor="let week of weeks"> {{week.name}}</div>
     </div>
 
-    <app-timesheet-row *ngFor="let row of rows" [rowInfo]="row"></app-timesheet-row>
+    <app-timesheet-row *ngFor="let row of rows" [rowInfo]="row" [timesheetData]="timesheetData"></app-timesheet-row>
 
 </div>

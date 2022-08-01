@@ -1,15 +1,14 @@
-<div class="overcell-content">
-    <div class="example-handle" cdkDrag cdkDragBoundary=".cell-container" cdkDragHandle
-        cdkDragRootElement="app-timesheet-overcell">
-        <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
-            <path
-                d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z">
-            </path>
-            <path d="M0 0h24v24H0z" fill="none"></path>
-        </svg>
-    </div>
+<div class="overcell-content" 
+cdkDrag 
+cdkDragBoundary=".cell-container" 
+cdkDragHandle
+cdkDragRootElement="app-timesheet-overcell" 
+(cdkDragStarted)="overCellDragStarted()"
+(cdkDragEnded)="overCellDragEnded()" 
+cdkDragLockAxis="x"
+[ngClass]="{ 'dragged': dragged}">
 
-    <div>
+    <div class="overcell-left-resizer-container">
         <!-- this item is not displayer  -->
         <span class="left-resizer" cdkDrag (cdkDragStarted)="dragStarted(true)" (cdkDragEnded)="dragEnded($event)"
             (cdkDragMoved)="dragMoved($event)" cdkDragBoundary=".cell-container"></span>
@@ -18,9 +17,13 @@
         <span class="left-resizer-item"></span>
     </div>
 
+    <div class="overcell-content">
+        <ng-template *ngIf="timesheetData != null" [ngTemplateOutlet]="timesheetData!.template"
+            [ngTemplateOutletContext]="{$implicit : { 'row' : row, 'first': firstCell?.cellInfo, 'last': lastCell?.cellInfo } }">
+        </ng-template>
+    </div>
 
-
-    <div>
+    <div class="overcell-right-resizer-container">
         <!-- this item is not displayer  -->
         <span class="right-resizer" cdkDrag (cdkDragStarted)="dragStarted(false)" (cdkDragEnded)="dragEnded($event)"
             (cdkDragMoved)="dragMoved($event)" cdkDragBoundary=".cell-container"></span>

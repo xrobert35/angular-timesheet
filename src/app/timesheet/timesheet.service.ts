@@ -1,27 +1,38 @@
-import { ElementRef, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
+import { TimesheetCellComponent } from "./timesheet-cell/timesheet-cell.component";
 
 @Injectable()
 export class TimesheetService {
 
-    cellRefs : ElementRef<HTMLElement>[] = [];
+    cellsInfo: TimesheetCellComponent[] = [];
 
-    public addCellRef(element: ElementRef<HTMLElement>){
-        this.cellRefs.push(element);
+    public addCellInfo(element: TimesheetCellComponent) {
+        this.cellsInfo.push(element);
     }
 
-    public getRightCellForBoundingClientRect(domRect : DOMRect): ElementRef<HTMLElement>{
-        return this.cellRefs.find(cellRef => {
-            const cellBouding = cellRef.nativeElement.getBoundingClientRect();
-            const overCellRight = domRect.right;
-            return cellBouding.left <= overCellRight && cellBouding.right >= overCellRight;
-        })!;
+    public getRightCellForBoundingClientRect(domRect: DOMRect, row: string): TimesheetCellComponent {
+        return this.getCellForPosition(domRect.right - 2, row);
     }
 
-    public getLeftCellForBoundingClientRect(domRect : DOMRect): ElementRef<HTMLElement>{
-        return this.cellRefs.find(cellRef => {
-            const cellBouding = cellRef.nativeElement.getBoundingClientRect();
-            const overCellLeft = domRect.left;
-            return cellBouding.left <= overCellLeft && cellBouding.right >= overCellLeft;
-        })!;
+    public getLeftCellForBoundingClientRect(domRect: DOMRect, row: string): TimesheetCellComponent {
+        return this.getCellForPosition(domRect.left + 2, row);
+    }
+
+    public getNbCellBetween(firstCell: TimesheetCellComponent, lastCell: TimesheetCellComponent) {
+        return this.cellsInfo.indexOf(lastCell) - this.cellsInfo.indexOf(firstCell);
+    }
+
+    public getCellAtPosition(lastCell: TimesheetCellComponent, overcellSize: number) {
+        const basePosition = this.cellsInfo.indexOf(lastCell);
+        return this.cellsInfo[basePosition - overcellSize];
+    }
+
+    private getCellForPosition(positionX: number, row: string) {
+        return this.cellsInfo
+            .filter(cellInfo => cellInfo.row == row)
+            .find(cellInfo => {
+                const cellBouding = cellInfo.element.nativeElement.getBoundingClientRect();
+                return cellBouding.left <= positionX && cellBouding.right >= positionX;
+            })!;
     }
 }

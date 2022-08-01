@@ -1,1 +1,3 @@
-<app-timesheet></app-timesheet>
+<app-timesheet>
+    <app-timesheet-data *appTimesheetData="let data">{{ data?.first?.name }} {{ data?.last?.name}}</app-timesheet-data>
+</app-timesheet>
